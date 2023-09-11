@@ -1,4 +1,4 @@
-public class Main {
+public class HW2_Output1 {
     public static void main(String[] args) {
         System.out.println("Num     Square");
         System.out.println("***     ******");
