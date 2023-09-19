@@ -23,8 +23,15 @@ public class HW5_Fastfood {
         double subtotal = (burgers * burgerPrice + fries * friesPrice + sodas * sodaPrice);
         double total = subtotal * 1.13;
 
-        System.out.println("The subtotal is $" + subtotal + ".");
-        System.out.println("The tax (13%) is $" + subtotal * 0.13 + ".");
-        System.out.println("The total is $" + total + ".");
+        System.out.printf("The subtotal is $%.2f.\n", subtotal);
+        System.out.printf("The tax (13%%) is $%.2f.\n", subtotal * 0.13);
+        System.out.printf("The total is $%.2f.\n", total);
+
+        // new scanner to read the user's payment
+        Scanner paymentScanner = new Scanner(System.in);
+        System.out.println("Enter your payment:");
+        double payment = paymentScanner.nextDouble();
+        double change = payment - total;
+        System.out.printf("Your change is $%.2f.%n", change);
     }
 }
