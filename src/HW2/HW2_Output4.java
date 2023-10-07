@@ -7,7 +7,8 @@ public class HW2_Output4 {
             res.append("%d     %3d\n".formatted(i, i * i));
         }
         for (int i = 1; i <= 5; i++) {
-            res.append(i + " * " + i + " =  " + i * i + "\n");
+            String data = i + " * " + i + " =  " + i * i + "\n";
+            res.append(data);
         }
         System.out.println(res);
     }

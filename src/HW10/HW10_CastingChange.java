@@ -16,7 +16,7 @@ public class HW10_CastingChange {
         int cents = (int) (dollars * 100);
 
         // Calculate the number of each coin in descending order
-        int[] toonies = changePerCoin((int) cents, 200); // toonies
+        int[] toonies = changePerCoin(cents, 200); // toonies
         int[] loonies = changePerCoin(toonies[1], 100); // loonies
         int[] quarters = changePerCoin(loonies[1], 25); // quarters
         int[] dimes = changePerCoin(quarters[1], 10); // dimes
