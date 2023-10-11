@@ -12,7 +12,7 @@ class HW11_Pass {
         int maxPrecedence = -1;
         while (last.next != null) {
             if (last instanceof Operator op) {
-                if (op.precedence > maxPrecedence) {
+                if (op.precedence >= maxPrecedence) {
                     max = op;
                     maxPrecedence = op.precedence;
                 }
@@ -29,7 +29,7 @@ class HW11_Pass {
                 if (op.prev instanceof Operator || op.operator.equals(")")) {
                     op.remove();
                 } else if (op.operator.equals("(")) {
-                    op.replace(new Operator(op.prev, " * ", op.precedence - 3));
+                    op.replace(new Operator(op.prev, " * ", (op.precedence-1)*3+1));
                 }
             }
         }
@@ -78,7 +78,7 @@ class HW11_Pass {
                 case 2 -> last = last.append(new Operator(last, " * ", level*3+1));
                 case 3 -> last = last.append(new Operator(last, " / ", level*3+1));
                 case 4 -> last = last.append(new Operator(last, "^", level*3+2));
-                case 5 -> { level++; last = last.append(new Operator(last, "(", level*3+3)); }
+                case 5 -> { level++; last = last.append(new Operator(last, "(", level)); }
             }
 
             // Produce number
@@ -90,7 +90,7 @@ class HW11_Pass {
 
             // Possibly close bracket
             if (Math.random() < 0.2 && level > 0) {
-                last = last.append(new Operator(last, ")", level*3+3));
+                last = last.append(new Operator(last, ")", level));
                 level--;
             }
         }
@@ -187,15 +187,18 @@ class Operator extends Symbol {
     }
 
     public double operate() {
+        double res;
+        double a, b;
+
         System.out.print(prev);
         System.out.print(this);
         System.out.println(next);
-        double a = ((Number) prev).value;
-        double b = ((Number) next).value;
-        next.remove();
-        prev.remove();
+        a = ((Number) prev.remove()).value;
+        b = ((Number) next.remove()).value;
+//        next.remove();
+//        prev.remove();
 
-        double res = switch (operator) {
+        res = switch (operator) {
             case " + " -> a + b;
             case " - " -> a - b;
             case " * " -> a * b;
@@ -204,7 +207,7 @@ class Operator extends Symbol {
             default -> 0;
         };
 
-        this.replace(new Number(prev, res));
+        this.replace(new Number(null, res));
         return res;
     }
 }
