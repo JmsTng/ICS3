@@ -14,9 +14,10 @@
 		
 		// Logic
 		System.out.print("Please input the capital of Canada: ");
-		switch (sc.nextLine().strip().toLowerCase()) {
-			case "ottawa" -> System.out.println("That's correct!");
-			default -> System.out.println("Better luck next time! The answer was: Ottawa");
-		}
+        if (sc.nextLine().strip().equalsIgnoreCase("ottawa")) {
+            System.out.println("That's correct!");
+        } else {
+            System.out.println("Better luck next time! The answer was: Ottawa");
+        }
 	}
 }
