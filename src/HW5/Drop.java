@@ -7,7 +7,7 @@
 
 import java.util.Scanner;
 
-public class HW5_Drop {
+public class Drop {
     public static void main (String[] args) {
         System.out.println("Enter a time less than 4.5 seconds:");
         double time = new Scanner(System.in).nextDouble();

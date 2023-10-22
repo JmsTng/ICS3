@@ -7,7 +7,7 @@
 
 import java.util.Scanner;
 
-public class HW7_TimeConversion {
+public class TimeConversion {
     public static void main (String[] args) {
         System.out.println("Enter the number of minutes:");
         Scanner sc = new Scanner(System.in);

@@ -7,19 +7,21 @@
 
 import java.util.Scanner;
 
-public class HW7_Spending {
+public class Spending {
     public static void main (String[] args) {
         Scanner sc = new Scanner(System.in);
+        double food, clothing, entertainment, rent, total;
+
         System.out.println("Enter the amount spent in the following categories:");
         System.out.print(" - Food: $");
-        double food = sc.nextInt();
+        food = sc.nextInt();
         System.out.print(" - Clothing: $");
-        double clothing = sc.nextInt();
+        clothing = sc.nextInt();
         System.out.print(" - Entertainment: $");
-        double entertainment = sc.nextInt();
+        entertainment = sc.nextInt();
         System.out.print(" - Rent: $");
-        double rent = sc.nextInt();
-        double total = food + clothing + entertainment + rent;
+        rent = sc.nextInt();
+        total = food + clothing + entertainment + rent;
         System.out.println("Category" + " ".repeat(10) + "Percentage");
         System.out.printf("Food%23.2f%%", 100 * food/total);
         System.out.printf("\nClothing%19.2f%%", 100 * clothing/total);

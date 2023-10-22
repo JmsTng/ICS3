@@ -1,23 +1,28 @@
 /*
- * TITLE: Homework Set 7 - Change
+ * TITLE: Homework Set 10 - Change (using casting)
  * NAME: James Tung
- * DATE: 9/23/2023
- * DESCRIPTION: Given the amount of change in cents, calculate the minimum number of coins needed to make the change.
+ * DATE: 10/1/2023
+ * DESCRIPTION: Read a number of dollars and output the number of quarters, dimes, nickels, and pennies.
  */
 
 import java.util.Scanner;
 
-public class HW7_Change {
+public class Change_New {
     public static void main (String[] args) {
-        System.out.println("Enter the value in cents: ");
+        // Read input
         Scanner sc = new Scanner(System.in);
-        int amount = sc.nextInt();
-        // calculate the number of each coin in descending order
-        int[] toonies = changePerCoin(amount, 200); // toonies
+        System.out.print("Enter the number of dollars: $");
+        double dollars = sc.nextDouble();
+        int cents = (int) (dollars * 100);
+
+        // Calculate the number of each coin in descending order
+        int[] toonies = changePerCoin(cents, 200); // toonies
         int[] loonies = changePerCoin(toonies[1], 100); // loonies
         int[] quarters = changePerCoin(loonies[1], 25); // quarters
         int[] dimes = changePerCoin(quarters[1], 10); // dimes
         int[] nickels = changePerCoin(dimes[1], 5); // nickels
+
+        // Output the number of each coin
         System.out.println("The minimum number of coins is:");
         System.out.println(" - Toonies: " + toonies[0]);
         System.out.println(" - Loonies: " + loonies[0]);

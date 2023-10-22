@@ -5,7 +5,7 @@
  * DESCRIPTION: Output the account balances of Juanita and Juan padded using string flags.
  */
 
-public class HW6_Output1 {
+public class OutputPrintf1 {
     public static void main (String[] args) {
         double juanitaBank = 2345678.99;
         double juanBank = 15455.26;

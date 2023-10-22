@@ -45,6 +45,7 @@ public class SortThreeNum {
 					} else {
 						System.out.println(num2 + " " + num1);
 					}
+				}
 			}
 		}
 	}

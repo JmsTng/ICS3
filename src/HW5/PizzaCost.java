@@ -7,14 +7,14 @@
 
 import java.util.Scanner;
 
-public class HW5_PizzaCost {
+public class PizzaCost {
     public static void main (String[] args) {
         System.out.println("Enter the size of the pizza in inches:");
         double size = new Scanner(System.in).nextDouble(); // Read the size of the pizza
         // Set the rent and labour costs as constants
-        final double rent = 1.0;
-        final double labour = 0.75;
+        final double RENT = 1.0;
+        final double LABOUR = 0.75;
 
-        System.out.println("The total cost of the pizza is $" + (0.05 * size * size + labour + rent) + "."); // Use the formula cost = 0.05 * size^2 + labour + rent
+        System.out.println("The total cost of the pizza is $" + (0.05 * size * size + LABOUR + RENT) + "."); // Use the formula cost = 0.05 * size^2 + labour + rent
     }
 }

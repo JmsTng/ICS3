@@ -7,12 +7,13 @@
 
 import java.util.Scanner;
 
-public class HW9_Height {
+public class Height {
     public static void main (String[] args) {
         // Declare constants
         final double CM_PER_INCH = 2.54;
         final double INCH_PER_FOOT = 12;
-        int inches;
+        int feet, inches;
+        double height;
 
         // Read input
         Scanner sc = new Scanner(System.in);
@@ -22,7 +23,7 @@ public class HW9_Height {
             // If input contains feet and inches
             // Split input into feet and inches
             String[] split = input.split("'");
-            int feet = Integer.parseInt(split[0]);
+            feet = Integer.parseInt(split[0]);
             inches = Integer.parseInt(split[1].replace("\"", "")) + (int) (feet * INCH_PER_FOOT);
         } else {
             // If input contains only inches
@@ -30,7 +31,7 @@ public class HW9_Height {
         }
 
         // Calculate height in centimeters
-        double height = inches * CM_PER_INCH;
+        height = inches * CM_PER_INCH;
 
         // Output height in centimeters
         System.out.printf("Height in centimeters: %.2f", height);
