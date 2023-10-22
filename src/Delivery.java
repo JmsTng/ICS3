@@ -11,7 +11,8 @@
  	public static void main(String[] args) {
 		// Initialization
 		Scanner sc = new Scanner(System.in);
-		int weight, l, w, h;
+		int weight;
+		int l = 0, w = 0, h = 0;
 		double price;
 		String[] dimensions;
 		
@@ -20,11 +21,11 @@
 		weight = sc.nextInt();
 		
 		System.out.print("Enter the dimensions of your package in cm (eg. 10x10x10): ");
-		dimensions = sc.nextLine().split();
+		dimensions = sc.nextLine().split("x");
 		for (int i = 0; i < dimensions.length; i++) { // does this work??
-			if (i == 0) l = dimensions[i];
-			if (i == 1) w = dimensions[i];
-			if (i == 2) h = dimensions[i];
+			if (i == 0) l = Integer.parseInt(dimensions[i]);
+			if (i == 1) w = Integer.parseInt(dimensions[i]);
+			if (i == 2) h = Integer.parseInt(dimensions[i]);
 		} // 100% not going to work first try...
 		
 		// Logic
@@ -35,9 +36,9 @@
 		} else {
 			if (weight <= 5) {
 				price = weight * 3;
-			} elif (weight <= 12) {
+			} else if (weight <= 12) {
 				price = weight * 3.5;
-			} elif (weight <= 20) {
+			} else if (weight <= 20) {
 				price = weight * 4;
 			} else {
 				price = weight * 4.5;

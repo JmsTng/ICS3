@@ -17,8 +17,8 @@
 		// Output
 		if (age <= 18) {
 			if (age <= 5) System.out.println("toddler");
-			elif (age <= 10) System.out.println("child");
-			elif (age <= 12) System.out.println("preteen");
+			else if (age <= 10) System.out.println("child");
+			else if (age <= 12) System.out.println("preteen");
 			else System.out.println("teen");
 		} else System.out.println("adult");
 	}

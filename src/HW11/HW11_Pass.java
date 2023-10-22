@@ -64,6 +64,9 @@ class HW11_Pass {
 
         // Solve equation
         while (locate(head) != null) {
+            if (head.length() <= 3) {
+                System.out.println(head.toString() + head.next + head.next.next);
+            }
             Operator op = locate(head);
 
             op.operate();
@@ -174,6 +177,14 @@ class Symbol {
         }
 
         return next;
+    }
+
+    public int length() {
+        int length = 0;
+        for (Symbol symbol = this; symbol != null; symbol = symbol.next) {
+            length++;
+        }
+        return length;
     }
 }
 
