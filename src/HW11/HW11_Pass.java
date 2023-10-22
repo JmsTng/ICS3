@@ -1,18 +1,43 @@
+/*
+ * TITLE: Homework Set 11 - Pass
+ * NAME: James Tung
+ * DATE: 10/7/2023
+ * DESCRIPTION: Give the user an equation and output whether they got it right.
+ */
+
+import java.util.Scanner;
+
 class HW11_Pass {
     public static void main(String[] args) {
-        Symbol head = buildEquation(5);
+        Symbol head = buildEquation(5); // Generate equation with 5 terms
 
         System.out.println(outputEquation(head));
-        eval(head);
+        // Evaluate equation
+        long answer = Math.round(eval(head));
+
+        // Prompt user for answer
+        System.out.print("What is the answer (rounded to the nearest integer)? ");
+        Scanner sc = new Scanner(System.in);
+        long guess = sc.nextLong();
+
+        // Output whether user got it right
+        if (guess == Math.round(answer)) {
+            System.out.println("Correct!");
+        } else {
+            System.out.println("Incorrect. The answer is " + answer + ".");
+        }
     }
 
     public static Operator locate(Symbol head) {
+        // Initialize all variables to run through linked list
         Symbol last = head;
-        Operator max = null;
+        Operator max = (Operator) head.next;
         int maxPrecedence = -1;
+
+        // Find operator with the highest precedence
         while (last.next != null) {
             if (last instanceof Operator op) {
-                if (op.precedence >= maxPrecedence) {
+                if (op.precedence > maxPrecedence) {
                     max = op;
                     maxPrecedence = op.precedence;
                 }
@@ -25,6 +50,7 @@ class HW11_Pass {
     public static double eval(Symbol head) {
         // Clear brackets
         for (Symbol symbol = head; symbol != null; symbol = symbol.next) {
+            System.out.println(symbol);
             if (symbol instanceof Operator op) {
                 if (op.prev instanceof Operator || op.operator.equals(")")) {
                     op.remove();
@@ -38,12 +64,12 @@ class HW11_Pass {
 
         // Solve equation
         while (locate(head) != null) {
-            Operator op = (Operator) locate(head);
+            Operator op = locate(head);
 
             op.operate();
             System.out.println(outputEquation(head));
         }
-        assert head != null;
+
         return ((Number) head).value;
     }
 
@@ -127,14 +153,12 @@ class Symbol {
     }
 
     public Symbol remove() {
-        if (prev != null) {
-            prev.next = next;
-        }
-        if (next != null) {
-            next.prev = prev;
-        }
-        prev = null;
-        next = null;
+        // Close list
+        if (this.next != null) this.next.prev = this.prev;
+        if (this.prev != null) this.prev.next = this.next;
+
+        this.prev = null;
+        this.next = null;
 
         return this;
     }

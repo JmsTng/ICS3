@@ -7,7 +7,7 @@
 
 import java.util.Scanner;
 
-public class Average_New {
+public class HW10_Average {
     public static void main (String[] args) {
         Scanner sc = new Scanner(System.in); // Create a Scanner object for input
         // Read five integer test scores
