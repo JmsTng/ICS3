@@ -7,10 +7,11 @@
 
 import java.util.Scanner;
 
-public class HW5_Average {
+public class Average {
     public static void main (String[] args) {
         Scanner sc = new Scanner(System.in); // Create a Scanner object for input
         // Read three doubles
+        System.out.println("Enter three doubles:");
         double num1 = sc.nextDouble();
         double num2 = sc.nextDouble();
         double num3 = sc.nextDouble();

@@ -7,13 +7,14 @@
 
 import java.util.Scanner;
 
-public class HW7_Energy {
+public class Energy {
     public static void main (String[] args) {
         System.out.println("Enter the mass of the object in kilograms:");
         Scanner sc = new Scanner(System.in);
         double mass = sc.nextDouble();
         int light = 3 * (int) Math.pow(10, 8); // speed of light in m/s
         double energy = mass * Math.pow(light, 2); // E = mc^2
+
         System.out.println("The energy produced is " + energy + " joules.");
         System.out.println("The number of 100-watt lightbulbs that can be powered for an hour is " + energy / 360000 + ".");
     }

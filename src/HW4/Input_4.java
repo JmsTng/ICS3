@@ -7,11 +7,12 @@
 
 import java.util.Scanner;
 
-public class HW4_Output4 {
+public class Input_4 {
     public static void main (String[] args) {
         Scanner sc = new Scanner(System.in);
         String firstWord = sc.next();
         String secondWord = sc.next();
+
         System.out.println(firstWord);
         System.out.println(secondWord);
         System.out.println(firstWord + "\t" + secondWord);

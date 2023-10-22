@@ -7,18 +7,21 @@
 
 import java.util.Scanner;
 
-public class HW9_Currency {
+public class Currency {
     public static void main (String[] args) {
         // Declare constants
         final double CAD_PER_USD = 1.35;
 
+        // Declare variables
+        double usd, cad;
+
         // Read input
         Scanner sc = new Scanner(System.in);
         System.out.print("Enter the amount of money in US dollars: $");
-        double usd = sc.nextDouble();
+        usd = sc.nextDouble();
 
         // Calculate amount of money in Canadian dollars
-        double cad = usd * CAD_PER_USD;
+        cad = usd * CAD_PER_USD;
 
         // Output amount of money in Canadian dollars
         System.out.printf("Amount of money in Canadian dollars: $%.2f", cad);

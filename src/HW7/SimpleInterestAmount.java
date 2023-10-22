@@ -7,16 +7,19 @@
 
 import java.util.Scanner;
 
-public class HW7_SimpleInterestAmount {
+public class SimpleInterestAmount {
     public static void main (String[] args) {
         Scanner sc = new Scanner(System.in);
+        double principal, interestRate, interestAmount;
+        int years;
+
         System.out.println("Enter the principal:");
-        double principal = sc.nextDouble();
+        principal = sc.nextDouble();
         System.out.println("Enter the interest rate:");
-        double interestRate = sc.nextDouble();
+        interestRate = sc.nextDouble();
         System.out.println("Enter the number of years:");
-        int years = sc.nextInt();
-        double interestAmount = principal * ((interestRate / 100) * years + 1); // A = P(1+rt)
+        years = sc.nextInt();
+        interestAmount = principal * ((interestRate / 100) * years + 1); // A = P(1+rt)
         System.out.printf("The simple interest amount is $%.2f.\n", interestAmount);
     }
 }

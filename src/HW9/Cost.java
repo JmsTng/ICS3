@@ -7,23 +7,28 @@
 
 import java.util.Scanner;
 
-public class HW9_Cost {
+public class Cost {
     public static void main (String[] args) {
         // Declare constants
         final double HST = 0.13;
         final double BAG_COST = 0.05;
 
+        // Declare variables
+        double price;
+        int bags;
+        double tax, bagCost, totalCost;
+
         // Read input
         Scanner sc = new Scanner(System.in);
         System.out.print("Enter the price of the item: $");
-        double price = sc.nextDouble();
+        price = sc.nextDouble();
         System.out.print("Enter the number of bags: ");
-        int bags = sc.nextInt();
+        bags = sc.nextInt();
 
         // Calculate tax, bag cost, and total cost
-        double tax = price * HST;
-        double bagCost = bags * BAG_COST;
-        double totalCost = price + tax;
+        tax = price * HST;
+        bagCost = bags * BAG_COST;
+        totalCost = price + tax;
 
         // Output tax, bag cost, and total cost
         System.out.printf("Tax: $%.2f\n", tax);

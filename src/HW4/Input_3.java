@@ -7,11 +7,14 @@
 
 import java.util.Scanner;
 
-public class HW4_Output3 {
+public class Input_3 {
     public static void main (String[] args) {
         Scanner sc = new Scanner(System.in);
+        System.out.println("What is your name?");
         String name = sc.nextLine();
+        System.out.println("What is your age?");
         String age = sc.nextLine();
+
         System.out.printf("Hello %s. You are %s years old.", name, age);
     }
 }
