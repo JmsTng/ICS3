@@ -12,7 +12,7 @@ class HW11_Pass {
         Symbol head = buildEquation(5); // Generate equation with 5 terms
 
         System.out.println(outputEquation(head));
-        // Evaluate equation
+        // Evaluate equation and round to nearest integer
         long answer = Math.round(eval(head));
 
         // Prompt user for answer
@@ -20,8 +20,8 @@ class HW11_Pass {
         Scanner sc = new Scanner(System.in);
         long guess = sc.nextLong();
 
-        // Output whether user got it right
-        if (guess == Math.round(answer)) {
+        // Output whether the user got it right or wrong
+        if (guess == answer) {
             System.out.println("Correct!");
         } else {
             System.out.println("Incorrect. The answer is " + answer + ".");
@@ -50,12 +50,15 @@ class HW11_Pass {
     public static double eval(Symbol head) {
         // Clear brackets
         for (Symbol symbol = head; symbol != null; symbol = symbol.next) {
-            System.out.println(symbol);
             if (symbol instanceof Operator op) {
-                if (op.prev instanceof Operator || op.operator.equals(")")) {
+                if (op.prev instanceof Operator) {
                     op.remove();
-                } else if (op.operator.equals("(")) {
-                    op.replace(new Operator(op.prev, " * ", (op.precedence-1)*3+1));
+                } else if (op.operator == ")") {
+                    op.remove();
+                } else {
+                    if (op.operator.equals("(")) {
+                        op.replace(new Operator(op.prev, " * ", (op.precedence - 1) * 3 + 1));
+                    }
                 }
             }
         }
@@ -64,12 +67,17 @@ class HW11_Pass {
 
         // Solve equation
         while (locate(head) != null) {
-            if (head.length() <= 3) {
-                System.out.println(head.toString() + head.next + head.next.next);
-            }
             Operator op = locate(head);
+            Symbol res = op.operate();
+            if (head.next == null) {
+                System.out.println("prob finished?");
+                System.out.println(head);
+                return ((Number) head).value;
+            } else if (res.prev.prev == null) {
+                System.out.println("broken part");
+                head = res.prev;
+            }
 
-            op.operate();
             System.out.println(outputEquation(head));
         }
 
@@ -176,7 +184,7 @@ class Symbol {
             next.prev = replacement;
         }
 
-        return next;
+        return replacement;
     }
 
     public int length() {
@@ -221,7 +229,7 @@ class Operator extends Symbol {
         return operator;
     }
 
-    public double operate() {
+    public Symbol operate() {
         double res;
         double a, b;
 
@@ -230,8 +238,6 @@ class Operator extends Symbol {
         System.out.println(next);
         a = ((Number) prev.remove()).value;
         b = ((Number) next.remove()).value;
-//        next.remove();
-//        prev.remove();
 
         res = switch (operator) {
             case " + " -> a + b;
@@ -242,7 +248,6 @@ class Operator extends Symbol {
             default -> 0;
         };
 
-        this.replace(new Number(null, res));
-        return res;
+        return this.replace(new Number(null, res));
     }
 }
