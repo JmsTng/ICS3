@@ -7,11 +7,11 @@
 
 import java.util.Scanner;
 
-class HW11_Pass {
+class Pass {
     public static void main(String[] args) {
         Symbol head = buildEquation(5); // Generate equation with 5 terms
 
-        System.out.println(outputEquation(head));
+        System.out.println(outputEquation(head) + " = ?");
         // Evaluate equation and round to nearest integer
         long answer = Math.round(eval(head));
 
@@ -51,34 +51,25 @@ class HW11_Pass {
         // Clear brackets
         for (Symbol symbol = head; symbol != null; symbol = symbol.next) {
             if (symbol instanceof Operator op) {
-                if (op.prev instanceof Operator) {
+                if (op.prev instanceof Operator || op.next instanceof Operator) {
                     op.remove();
-                } else if (op.operator == ")") {
+                } else if (op.operator.equals(")")) {
                     op.remove();
-                } else {
-                    if (op.operator.equals("(")) {
-                        op.replace(new Operator(op.prev, " * ", (op.precedence - 1) * 3 + 1));
-                    }
+                } else if (op.operator.equals("(")) {
+                    op.replace(new Operator(op.prev, " * ", (op.precedence - 1) * 3 + 1));
                 }
             }
         }
-
-        System.out.println(outputEquation(head));
 
         // Solve equation
         while (locate(head) != null) {
             Operator op = locate(head);
             Symbol res = op.operate();
-            if (head.next == null) {
-                System.out.println("prob finished?");
-                System.out.println(head);
-                return ((Number) head).value;
-            } else if (res.prev.prev == null) {
-                System.out.println("broken part");
-                head = res.prev;
+            if (res.prev == null && res.next == null) {
+                head = res;
+            } else if (res.prev == null) {
+                head = res;
             }
-
-            System.out.println(outputEquation(head));
         }
 
         return ((Number) head).value;
@@ -233,9 +224,6 @@ class Operator extends Symbol {
         double res;
         double a, b;
 
-        System.out.print(prev);
-        System.out.print(this);
-        System.out.println(next);
         a = ((Number) prev.remove()).value;
         b = ((Number) next.remove()).value;
 

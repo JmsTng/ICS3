@@ -7,7 +7,7 @@
 
 import java.util.Scanner;
 
-public class HW11_Salary {
+public class Salary {
     public static void main (String[] args) {
         // Prompt user for base salary and number of sales
         System.out.print("Enter your number of sales: ");

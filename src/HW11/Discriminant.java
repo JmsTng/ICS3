@@ -9,7 +9,7 @@ package HW11;
 
 import java.util.Scanner;
 
-public class HW11_Discriminant {
+public class Discriminant {
     public static void main(String[] args) {
         // Prompt user for a, b, and c
         Scanner sc = new Scanner(System.in);

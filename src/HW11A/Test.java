@@ -9,7 +9,7 @@ package HW11A;
 
 import java.util.Scanner;
 
-public class HW11A_Test {
+public class Test {
     public static void main (String[] args) {
         // Prompt for mark
         System.out.print("Enter a test mark: ");

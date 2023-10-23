@@ -7,7 +7,7 @@
 
 import java.util.Scanner;
 
-public class HW11_AgeCheck {
+public class AgeCheck {
     public static void main (String[] args) {
         // Prompt user for age
         System.out.print("Enter your age: ");

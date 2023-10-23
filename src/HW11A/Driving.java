@@ -9,7 +9,7 @@ package HW11A;
 
 import java.util.Scanner;
 
-public class HW11A_Driving {
+public class Driving {
     public static void main (String[] args) {
         // Prompt user for age
         System.out.print("Enter your age: ");

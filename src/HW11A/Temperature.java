@@ -9,7 +9,7 @@ package HW11A;
 
 import java.util.Scanner;
 
-public class HW11A_Temperature {
+public class Temperature {
     public static void main(String[] args) {
         // Prompt user for temperature
         System.out.print("Enter a temperature in degrees Celsius: ");

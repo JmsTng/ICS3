@@ -9,7 +9,7 @@ package HW11;
 
 import java.util.Scanner;
 
-public class HW11_CheckInt {
+public class CheckInt {
     public static void main(String[] args) {
         // Prompt user for number
         System.out.print("Enter a number: ");
