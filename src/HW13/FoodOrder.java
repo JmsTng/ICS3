@@ -14,7 +14,7 @@
 		String selection;
 		
 		// Assignments
-		System.out.println("1) juice + muffin + coffee\n2) cereal + toast + milk\n3) egg + toast + coffee\n4) banana + granola + milk\n5) grapefruit + bacon + eggs + coffee");
+		System.out.println("MENU:\n1) juice + muffin + coffee\n2) cereal + toast + milk\n3) egg + toast + coffee\n4) banana + granola + milk\n5) grapefruit + bacon + eggs + coffee");
 		System.out.print("Please choose a meal number: ");
 		selection = sc.next();
 		

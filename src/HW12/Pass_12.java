@@ -1,9 +1,11 @@
 /*
- * TITLE: Homework Set 11 - Pass
+ * TITLE: Homework Set 12 - Pass
  * NAME: James Tung
  * DATE: 10/7/2023
  * DESCRIPTION: Give the user an equation and output whether they got it right.
  */
+
+package HW12;
 
 import java.util.Scanner;
 

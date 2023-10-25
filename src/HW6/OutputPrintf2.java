@@ -10,8 +10,8 @@ public class OutputPrintf2 {
         int width = 15; // width of the table
         double num;
         System.out.printf("Number%"+(width-6)+"s\n", "Square");
-        for (int i = 0; i < 5; i++) {
-            num = 1.1 + i * 0.1; // precalculate the number
+        for (int i = 0; i <= 5; i++) {
+            num = 1.1 + i * 0.01; // precalculate the number
             System.out.printf("%.2f%"+(width-4)+".5f\n", num, num * num); // print the number and its square to 2 and 5 decimal places respectively
         }
     }
