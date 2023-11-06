@@ -19,5 +19,19 @@ public class Numbers {
             System.out.println("Enter a number: ");
             numbers[i] = sc.nextDouble();
         }
+
+        for (int i = NUMBERS-1; i > 0; i--) {
+            System.out.println(numbers[i]);
+        }
+
+        for (int i = 0; i < NUMBERS; i++) {
+            numbers[i] *= 1.1;
+        }
+
+        for (int i = 0; i < NUMBERS; i++) {
+            if (numbers[i] > 50) {
+                System.out.println(numbers[i]);
+            }
+        }
     }
 }
