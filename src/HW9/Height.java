@@ -5,6 +5,8 @@
  * DESCRIPTION: Ask for the height of a person in feet and inches. Output the height in centimeters.
  */
 
+package HW9;
+
 import java.util.Scanner;
 
 public class Height {
