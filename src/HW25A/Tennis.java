@@ -2,7 +2,7 @@
  * TITLE: Homework Set 25A - Tennis
  * NAME: James Tung
  * DATE: 11/12/2023
- * DESCRIPTION:
+ * DESCRIPTION: Write a program that takes in tennis scores and outputs the number of rounds won by player 2 and the number of sets won by player 1.
  */
 
 package HW25A;
