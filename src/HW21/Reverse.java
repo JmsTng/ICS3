@@ -1,8 +1,8 @@
 /*
- * TITLE: Homework Set 21 - Same Sum
+ * TITLE: Homework Set 21 - Reverse
  * NAME: James Tung
- * DATE: 11/7/2023
- * DESCRIPTION: Write a program that reads 10 integers and displays two arrays. The values with the same index in the two arrays should add to 25.
+ * DATE: 11/12/2023
+ * DESCRIPTION: Store 10 integers from the user in an array and reverse the array into a second one.
  */
 
 package HW21;
@@ -10,7 +10,7 @@ package HW21;
 import java.util.Arrays;
 import java.util.Scanner;
 
-public class SameSum {
+public class Reverse {
     public static void main(String[] args) {
         // Initialize variables
         Scanner sc = new Scanner(System.in);
@@ -22,7 +22,11 @@ public class SameSum {
         for (int i = 0; i < SIZE; i++) {
             System.out.print("Enter an integer: ");
             list1[i] = sc.nextInt();
-            list2[i] = 25 - list1[i]; // The corresponding values should add to 25
+        }
+
+        // Reverse array
+        for (int i = 0; i < SIZE; i++) {
+            list2[i] = list1[SIZE - i - 1];
         }
 
         // Output results

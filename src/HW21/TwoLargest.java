@@ -10,7 +10,8 @@ package HW21;
 public class TwoLargest {
     public static void main(String[] args) {
         // Initialize variables
-        int[] numbers = new int[10];
+        final int SIZE = 10;
+        int[] numbers = new int[SIZE];
         int largest = 0, secondLargest = 0;
 
         // Populate array
