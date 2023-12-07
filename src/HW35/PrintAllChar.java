@@ -28,6 +28,8 @@ public class PrintAllChar {
 
                 ch = br.read();
             }
+
+            br.close();
         } catch (IOException e) {
             System.out.println("Error: " + e);
         }

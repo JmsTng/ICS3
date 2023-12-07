@@ -25,6 +25,8 @@ public class PrintLines {
                 System.out.println(line);
                 line = br.readLine();
             }
+
+            br.close();
         } catch (IOException e) {
             System.out.println("Error: " + e);
         }

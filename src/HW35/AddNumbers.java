@@ -26,11 +26,12 @@ public class AddNumbers {
                 sum += Integer.parseInt(line);
                 line = br.readLine();
             }
+            br.close();
+
+            // Print sum
+            System.out.println(sum);
         } catch (IOException | NumberFormatException e) {
             System.out.println("Error: " + e);
         }
-
-        // Print sum
-        System.out.println(sum);
     }
 }
