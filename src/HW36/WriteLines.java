@@ -2,7 +2,7 @@
  * TITLE: Homework Set 36 - Write Lines
  * NAME: James Tung
  * DATE: 12/4/2023
- * DESCRIPTION:
+ * DESCRIPTION: This program reads 10 lines from the console and writes them to a file.
  */
 
 package HW36;
