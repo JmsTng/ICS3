@@ -1,8 +1,8 @@
 /*
- * TITLE: Homework Set XX - Group Totaler
+ * TITLE: Homework Set 37 - Group Totaler
  * NAME: James Tung
  * DATE: 12/10/2023
- * DESCRIPTION:
+ * DESCRIPTION: Add together numbers separated into groups.
  */
 
 package HW37;
@@ -23,15 +23,20 @@ public class GroupTotaler {
 
             // Read each line and add to sum if it is a number
             // Else, print sum and reset
-            while ((line = br.readLine()) != null) {
+            if ((line = br.readLine()) != null) { // Check if file is empty
                 System.out.println(line);
-                if (line.matches("\\d+")) {
+            }
+            while ((line = br.readLine()) != null) {
+                try {
                     sum += Integer.parseInt(line);
-                } else {
-                    System.out.println("Sum = " + sum);
+                } catch (NumberFormatException e) {
+                    System.out.println("Sum = " + sum + "\n");
                     sum = 0;
+                    System.out.println(line);
                 }
             }
+            System.out.println("Sum = " + sum);
+            br.close();
         } catch (IOException e) {
             System.out.println("Error: " + e);
         }
