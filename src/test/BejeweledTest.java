@@ -47,15 +47,15 @@ public class BejeweledTest {
     public void testCount() {
         Bejeweled game = new Bejeweled();
         game.initBoard();
-        game.board = new char[][] {
-            {'A', 'A', 'A', 'A', 'A', 'A', 'A', 'A'},
-            {'B', 'B', 'A', 'B', 'B', 'B', 'B', 'B'},
-            {'C', 'C', 'A', 'C', 'C', 'C', 'C', 'C'},
-            {'D', 'D', 'D', 'D', 'D', 'D', 'D', 'D'},
-            {'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E'},
-            {'F', 'F', 'F', 'F', 'F', 'F', 'F', 'F'},
-            {'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G'},
-            {'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H'}
+        game.board = new char[][]{
+                {'A', 'A', 'A', 'A', 'A', 'A', 'A', 'A'},
+                {'B', 'B', 'A', 'B', 'B', 'B', 'B', 'B'},
+                {'C', 'C', 'A', 'C', 'C', 'C', 'C', 'C'},
+                {'D', 'D', 'D', 'D', 'D', 'D', 'D', 'D'},
+                {'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E'},
+                {'F', 'F', 'F', 'F', 'F', 'F', 'F', 'F'},
+                {'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G'},
+                {'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H'}
         };
         System.out.println("Count:");
         System.out.println(Arrays.toString(game.count(0, 2)));

@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class Bejeweled {
+    /* Constants */
     final int MAIN_MENU_CHOICE = -1;
     final int CHAIN_REQ = 3;
     final int NUM_MOVES = 10;
@@ -21,6 +22,7 @@ public class Bejeweled {
     final char EMPTY = '-';
     final String SAVE_FOLDER = "saves\\";
 
+    /* Globals */
     char[][] board;
     int score, moves;
 
@@ -40,7 +42,7 @@ public class Bejeweled {
             if (input.equals("-1")) {
                 return -1;
             }
-        } while (!input.matches("\\d+") || Integer.parseInt(input) < min || Integer.parseInt(input) > max);
+        } while (!input.matches("\\d+") || Integer.parseInt(input) < min || Integer.parseInt(input) > max);  // Check if input is an integer within range
 
         return Integer.parseInt(input);
     }
@@ -96,6 +98,7 @@ public class Bejeweled {
     }
 
     public void swap(int x1, int y1, int x2, int y2) {
+        // Swap pieces
         char temp = board[x1][y1];
         board[x1][y1] = board[x2][y2];
         board[x2][y2] = temp;
@@ -110,6 +113,7 @@ public class Bejeweled {
     }
 
     public void delete(int row, int col) {
+        // Set piece to empty
         board[row][col] = EMPTY;
     }
 
@@ -179,13 +183,13 @@ public class Bejeweled {
             return true;
         } catch(IOException e){
             System.out.println("Error saving file.");
-            System.out.println(e.getMessage());
             return false;
         }
     }
 
         public boolean load(String filename) {
-        String path = SAVE_FOLDER + filename;
+        // Variables
+        String path = SAVE_FOLDER + filename;  // Path to file
         File file = new File(path);
         Scanner sc;
 
@@ -194,8 +198,10 @@ public class Bejeweled {
                 sc = new Scanner(file);
                 score = sc.nextInt();
                 moves = sc.nextInt();
+
                 for (int row = 0; row < NUM_ROWS; row++) {
                     for (int col = 0; col < NUM_COLS; col++) {
+                        // Get piece from save file
                         board[row][col] = sc.next().charAt(0);
                     }
                 }
@@ -213,22 +219,26 @@ public class Bejeweled {
     }
 
     public String displayBoard(boolean save) {
+        // Output string
         String output = "";
 
         if (save) {
+            // If output is for saving, include score and moves
             output += score + "\n";
             output += moves + "\n";
         } else {
-            output += "  0 1 2 3 4 5 6 7\n";
+            // If output is for displaying, include column numbers
+            output += BColours.BOLD + "  0 1 2 3 4 5 6 7\n" + BColours.RESET;
         }
 
         for (int row = 0; row < NUM_ROWS; row++) {
             if (!save) {
-                output += row + " ";
+                // If output is for displaying, include row numbers
+                output += BColours.BOLD + row + BColours.RESET;
             }
 
             for (int col = 0; col < NUM_COLS; col++) {
-                output += board[row][col] + " ";
+                output += " " + board[row][col];
             }
             output += "\n";
         }
@@ -263,8 +273,7 @@ public class Bejeweled {
             if ((x2 = requestInt("Enter coordinate X2: ", 0, NUM_ROWS - 1)) == MAIN_MENU_CHOICE) return false;
             if ((y2 = requestInt("Enter coordinate Y2: ", 0, NUM_COLS - 1)) == MAIN_MENU_CHOICE) return false;
 
-            if (!adjSlots(x1, y1, x2, y2)) {
-
+            if (!adjSlots(x1, y1, x2, y2)) {  // Check if coordinates are adjacent
                 System.out.println("Coordinates are not adjacent.");
             } else {
                 // Swap pieces
@@ -314,6 +323,7 @@ public class Bejeweled {
             }
         }
 
+        // Game over
         System.out.println("No more moves remaining.");
         System.out.println("Final Score: " + score);
         System.out.println(displayBoard(false));
@@ -323,6 +333,7 @@ public class Bejeweled {
     }
 
     public void start() {
+        // Variables
         Scanner sc = new Scanner(System.in);
         int choice;
         boolean inGame = false;
@@ -334,49 +345,67 @@ public class Bejeweled {
 
         do {
             if (inGame) {
+                // Display in-game menu options
                 System.out.println("1. Continue");
                 System.out.println("2. Save Game");
                 System.out.println("3. Load Game");
                 System.out.println("4. Exit Game");
                 choice = requestInt("Enter choice: ", 1, 4);
             } else {
+                // Display main menu options
                 System.out.println("1. New Game");
                 System.out.println("2. Load Game");
                 System.out.println("3. Exit");
                 choice = requestInt("Enter choice: ", 1, 3);
             }
 
-
             switch (choice) {
-                case 1 -> {
-                    if (!inGame) {
+                case 1:
+                    if (!inGame) {  // If the user enters 1 and is not in game, create a new board
                         initBoard();
                     }
+
+                    // Play game
                     inGame = !play();
-                }
-                case 2 -> {
+                    break;
+                case 2:
                     System.out.print("File: ");
-                    if (inGame) {
+                    if (inGame) {  // If the user enters 2 and is in game, save the game
                         save(sc.next());
-                    } else {
+                    } else {  // If the user enters 2 and is not in game, load a game
                         load(sc.next());
                         inGame = !play();
                     }
-                }
-                case 3 -> {
-                    if (inGame) {
+                    break;
+                case 3:
+                    if (inGame) {  // If the user enters 3 and is in game, load a game
                         System.out.print("File: ");
                         load(sc.next());
-                    } else {
+                    } else {  // If the user enters 3 and is not in game, exit the program
                         System.out.println("Exiting game...");
                         choice = -1;
                     }
-                }
-                case 4 -> {
+                    break;
+                case 4:  // Only available when in game
+                    // Exit the program
                     System.out.println("Thank you for playing!");
                     choice = -1;
-                }
+                    break;
             }
         } while (choice != -1);
     }
+}
+
+class BColours {
+    public static final String RESET = "\0x1B[0m";
+
+    public static final String BOLD = "\0x1B[1m";
+    public static final String ITALIC = "\0x1B[3m";
+    public static final String UNDERLINE = "\0x1B[4m";
+
+    public static final String BLACK = "\0x1B[30m";
+    public static final String ERROR = "\0x1B[31m";
+    public static final String OK = "\0x1B[32m";
+    public static final String WARN = "\0x1B[33m";
+    public static final String WHISPER = "\0x1B[38m";
 }
