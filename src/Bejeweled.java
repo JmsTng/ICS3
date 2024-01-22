@@ -1,15 +1,14 @@
 /*
- * TITLE: Homework Set XX - Bejeweled
+ * TITLE: ICS Culminating Activity - Bejeweled
  * NAME: James Tung
  * DATE: 2024-01-15
- * DESCRIPTION:
+ * DESCRIPTION: A simplified implementation of the game Bejeweled.
  */
 
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Bejeweled {
@@ -20,40 +19,25 @@ public class Bejeweled {
     final int NUM_ROWS = 8;
     final int NUM_COLS = 8;
     final char EMPTY = '-';
-    final String SAVE_FOLDER = "saves/";
+    final String SAVE_FOLDER = "saves\\";
 
     char[][] board;
-    int score;
-    int moves;
+    int score, moves;
 
     public static void main(String[] args) {
         Bejeweled game = new Bejeweled();
         game.start();
     }
 
-    public static int requestInt(String prompt) {
-        Scanner sc = new Scanner(System.in);
-        String input;
-
-        do {
-            System.out.print(prompt);
-            input = sc.next();
-            if (input.strip().equals("-1")) {
-                return -1;
-            }
-        } while (!input.matches("\\d+"));
-
-        return Integer.parseInt(input);
-    }
-
+    /* Helper Methods */
     public static int requestInt(String prompt, int min, int max) {
         Scanner sc = new Scanner(System.in);
         String input;
 
-        do {
+        do {  // Loop until valid input is received
             System.out.print(prompt);
-            input = sc.next();
-            if (input.strip().equals("-1")) {
+            input = sc.next().strip();
+            if (input.equals("-1")) {
                 return -1;
             }
         } while (!input.matches("\\d+") || Integer.parseInt(input) < min || Integer.parseInt(input) > max);
@@ -61,15 +45,18 @@ public class Bejeweled {
         return Integer.parseInt(input);
     }
 
+    /* Game Methods */
     public void initBoard() {
         for (int row = 0; row < NUM_ROWS; row++) {
             for (int col = 0; col < NUM_COLS; col++) {
+                // Generate random piece
                 board[row][col] = (char) (Math.random() * PIECE_STYLES + 'a');
             }
         }
     }
 
     public boolean adjSlots(int x1, int y1, int x2, int y2) {
+        // Distance formula to check for adjacency
         return Math.sqrt(Math.pow(x1 - x2, 2) + Math.pow(y1 - y2, 2)) == 1;
     }
 
@@ -115,19 +102,17 @@ public class Bejeweled {
     }
 
     public void toggleMark(int row, int col) {
-        if (Character.isUpperCase(board[row][col])) {
+        if (Character.isUpperCase(board[row][col])) {  // If marked, unmark
             board[row][col] = Character.toLowerCase(board[row][col]);
-        } else {
+        } else {  // If unmarked, mark
             board[row][col] = Character.toUpperCase(board[row][col]);
         }
     }
 
     public void delete(int row, int col) {
         board[row][col] = EMPTY;
-
     }
 
-    // TODO: Condense deleteLeft, deleteRight, deleteUp, deleteDown into one method
     public void deleteLeft(int row, int col, int count) {
         for (int i = col - 1; i >= col - count; i--) {
             board[row][i] = EMPTY;
@@ -179,11 +164,13 @@ public class Bejeweled {
         BufferedWriter writer;
 
         if (file.exists()) {
-            System.out.println("File already exists. Are you sure you want to overwrite it? (y/n)\n > ");
+            System.out.print("File already exists. Are you sure you want to overwrite it? (y/n)\n > ");
             if (sc.next().strip().equalsIgnoreCase("n")) return false;
         }
 
         try {
+            file.getParentFile().mkdirs();
+            file.setWritable(true);
             file.createNewFile();
             writer = new BufferedWriter(new FileWriter(file));
             writer.write(displayBoard(true));
@@ -192,6 +179,7 @@ public class Bejeweled {
             return true;
         } catch(IOException e){
             System.out.println("Error saving file.");
+            System.out.println(e.getMessage());
             return false;
         }
     }
@@ -249,7 +237,6 @@ public class Bejeweled {
     }
 
     public boolean play() {
-        Scanner sc = new Scanner(System.in);
         int x1, y1, x2, y2;
         int[] c1, c2;
         int addScore;
@@ -293,27 +280,25 @@ public class Bejeweled {
                     if (c1[4] + 1 >= CHAIN_REQ) {
                         deleteLeft(x1, y1, c1[0]);
                         deleteRight(x1, y1, c1[1]);
-                        delete(x1, y1);
                         addScore += c1[4];
                     }
                     if (c1[5] + 1 >= CHAIN_REQ) {
                         deleteUp(x1, y1, c1[2]);
                         deleteDown(x1, y1, c1[3]);
-                        delete(x1, y1);
                         addScore += c1[5];
                     }
                     if (c2[4] + 1 >= CHAIN_REQ) {
                         deleteLeft(x2, y2, c2[0]);
                         deleteRight(x2, y2, c2[1]);
-                        delete(x2, y2);
                         addScore += c2[4];
                     }
                     if (c2[5] + 1 >= CHAIN_REQ) {
                         deleteUp(x2, y2, c2[2]);
                         deleteDown(x2, y2, c2[3]);
-                        delete(x2, y2);
                         addScore += c2[5];
                     }
+                    delete(x1, y1);
+                    delete(x2, y2);
 
                     // Update score
                     if (board[x1][y1] == board[x2][y2]) score += addScore / 2 + 1;
@@ -328,6 +313,11 @@ public class Bejeweled {
                 }
             }
         }
+
+        System.out.println("No more moves remaining.");
+        System.out.println("Final Score: " + score);
+        System.out.println(displayBoard(false));
+        System.out.println("Returning to main menu...\n");
 
         return true;
     }
@@ -362,8 +352,7 @@ public class Bejeweled {
                     if (!inGame) {
                         initBoard();
                     }
-                    inGame = true;
-                    play();
+                    inGame = !play();
                 }
                 case 2 -> {
                     System.out.print("File: ");
@@ -371,6 +360,7 @@ public class Bejeweled {
                         save(sc.next());
                     } else {
                         load(sc.next());
+                        inGame = !play();
                     }
                 }
                 case 3 -> {
