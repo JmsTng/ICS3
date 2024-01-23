@@ -113,6 +113,18 @@ public class Bejeweled {
         return Math.sqrt(Math.pow(x1 - x2, 2) + Math.pow(y1 - y2, 2)) == 1;
     }
 
+    /**
+     * This method counts the number of same pieces to the left, right, up, and down of a given cell in the game board.
+     * It also counts the total number of same pieces horizontally and vertically.
+     * It iterates over each column and row in the board and increments a counter if the cell contains the same piece.
+     * If a cell does not contain the same piece, it resets the counter.
+     *
+     * @param row The row index of the cell to count from.
+     * @param col The column index of the cell to count from.
+     * @return An array of counts. The first element is the count to the left, the second element is the count to the right,
+     * the third element is the count upwards, the fourth element is the count downwards,
+     * the fifth element is the total horizontal count (left + right), and the sixth element is the total vertical count (up + down).
+     */
     public int[] count(int row, int col) {
         int[] counts = new int[6];  // left, right, up, down, horizontal, vertical
 
@@ -148,6 +160,17 @@ public class Bejeweled {
         return counts;
     }
 
+    /**
+     * This method swaps the pieces at two specified positions on the game board.
+     * It first stores the piece at the first position in a temporary variable.
+     * Then it sets the piece at the first position to the piece at the second position.
+     * Finally, it sets the piece at the second position to the piece stored in the temporary variable.
+     *
+     * @param x1 The row index of the first position.
+     * @param y1 The column index of the first position.
+     * @param x2 The row index of the second position.
+     * @param y2 The column index of the second position.
+     */
     public void swap(int x1, int y1, int x2, int y2) {
         // Swap pieces
         char temp = board[x1][y1];
@@ -155,6 +178,14 @@ public class Bejeweled {
         board[x2][y2] = temp;
     }
 
+    /**
+     * This method toggles the marking of a piece on the game board at a given position.
+     * If the piece at the given position is marked (uppercase), it unmarks it by converting it to lowercase.
+     * If the piece at the given position is unmarked (lowercase), it marks it by converting it to uppercase.
+     *
+     * @param row The row index of the piece to toggle.
+     * @param col The column index of the piece to toggle.
+     */
     public void toggleMark(int row, int col) {
         if (Character.isUpperCase(board[row][col])) {  // If marked, unmark
             board[row][col] = Character.toLowerCase(board[row][col]);
@@ -163,11 +194,27 @@ public class Bejeweled {
         }
     }
 
+    /**
+     * This method deletes a piece on the game board at a given position by setting it to the global empty value.
+     *
+     * @param row The row index of the piece to delete.
+     * @param col The column index of the piece to delete.
+     */
     public void delete(int row, int col) {
         // Set piece to empty
         board[row][col] = EMPTY;
     }
 
+    /**
+     * This method deletes a horizontal line of pieces on the game board from a given position for a specified count.
+     * It iterates over each cell in the line and sets it to the global empty value.
+     * If a cell is the anchor (the piece which was swapped), it skips it and does not delete it.
+     *
+     * @param row The row index of the line to delete.
+     * @param col The column index of the start of the line to delete.
+     * @param count The number of pieces to delete from the start position.
+     * @param anchor The column index of the piece to skip (the round action piece).
+     */
     public void deleteHorizontal(int row, int col, int count, int anchor) {
         for (int i = col; i < col + count; i++) {
             // Skip if piece is the round action piece
@@ -177,6 +224,16 @@ public class Bejeweled {
         }
     }
 
+    /**
+     * This method deletes a vertical line of pieces on the game board from a given position for a specified count.
+     * It iterates over each cell in the line and sets it to the global empty value.
+     * If a cell is the anchor (the piece which was swapped), it skips it and does not delete it.
+     *
+     * @param row The row index of the start of the line to delete.
+     * @param col The column index of the line to delete.
+     * @param count The number of pieces to delete from the start position.
+     * @param anchor The row index of the piece to skip (the round action piece).
+     */
     public void deleteVertical(int row, int col, int count, int anchor) {
         for (int i = row; i < row + count; i++) {
             // Skip if piece is the round action piece
@@ -186,8 +243,14 @@ public class Bejeweled {
         }
     }
 
+    /**
+     * This method is used to update the game board after pieces have been deleted.
+     * It iterates over each column from bottom to top.
+     * If it finds an empty cell, it counts the number of empty cells above it (including itself) and drops the piece above the empty cells down.
+     * If there are no more pieces to drop, it generates a new piece.
+     */
     public void update() {
-        int depth;
+        int depth;  // Number of rows to drop
 
         // Delete pieces
         for (int col = 0; col < NUM_COLS; col++) {
@@ -199,13 +262,24 @@ public class Bejeweled {
                         board[row][col] = board[row - depth][col];
                         board[row - depth][col] = EMPTY;
                     } else {  // If no more pieces to drop; generate new piece
-                        board[row][col] = (char) (Math.random() * PIECE_STYLES + 'a' - 1);
+                        board[row][col] = (char) ((int) (Math.random() * PIECE_STYLES) + 'a');
                     }
                 }
             }
         }
     }
 
+    /**
+     * This method is used to save the current state of the game to a file.
+     * It first checks if the file already exists. If it does, it asks the user if they want to overwrite it.
+     * If the user chooses not to overwrite, it returns false and the method ends.
+     * If the file does not exist or the user chooses to overwrite, it creates the file and writes the current game board to it.
+     * The game board is written to the file by calling the displayBoard method with the parameter true, which formats the board for saving.
+     * If an IOException occurs during file creation or writing, it prints an error message and returns false.
+     *
+     * @param filename The name of the file to save to. The file will be located in the directory specified by the SAVE_FOLDER constant.
+     * @return True if the game was saved successfully, false otherwise.
+     */
     public boolean save(String filename) {
         Scanner sc = new Scanner(System.in);
         String path = SAVE_FOLDER + filename;
@@ -232,7 +306,17 @@ public class Bejeweled {
         }
     }
 
-        public boolean load(String filename) {
+    /**
+     * This method is used to load the game state from a file.
+     * It first checks if the file exists. If it does not, it prints a message and returns false.
+     * If the file exists, it opens the file and reads the score and moves from the first two lines.
+     * Then it reads the game board from the rest of the file. Each piece is read as a character.
+     * If an exception occurs during file reading, it prints an error message and returns false.
+     *
+     * @param filename The name of the file to load from. The file should be located in the directory specified by the SAVE_FOLDER constant.
+     * @return True if the game was loaded successfully, false otherwise.
+     */
+    public boolean load(String filename) {
         // Variables
         String path = SAVE_FOLDER + filename;  // Path to file
         File file = new File(path);
@@ -263,6 +347,15 @@ public class Bejeweled {
         }
     }
 
+    /**
+     * This method is used to display the game board.
+     * It iterates over each cell in the board and adds it to a string.
+     * If the output is for saving, it also adds the score and moves to the string.
+     * If the output is for displaying, it also adds the row and column numbers to the string.
+     *
+     * @param save True if the output is for saving, false if the output is for displaying.
+     * @return The formatted game board.
+     */
     public String displayBoard(boolean save) {
         String output = "";  // Output string
 
@@ -278,7 +371,7 @@ public class Bejeweled {
         for (int row = 0; row < NUM_ROWS; row++) {
             if (!save) {
                 // If output is for displaying, include row numbers
-                output += row + " ";
+                output += row;
             }
 
             for (int col = 0; col < NUM_COLS; col++) {
@@ -290,7 +383,20 @@ public class Bejeweled {
         return output;
     }
 
+    /**
+     * This method is used to play the game.
+     * It displays the game information (score, moves, board) and prompts the user for input.
+     * If the user enters -1, it returns false and the method ends.
+     * If the user enters valid coordinates, it swaps the pieces at the coordinates and decrements the number of moves.
+     * Then it checks for chains and deletes the pieces involved in the chains, and updates the score and board.
+     * If the user enters invalid coordinates, it prints a message and does not decrement the number of moves.
+     * If the number of moves reaches 0, it prints a message and returns true.
+     *
+     * @return True if the game finished by using up all the moves, false otherwise.
+     */
     public boolean play() {
+        // Variables
+        Scanner sc = new Scanner(System.in);
         int x1, y1, x2, y2;
         int[] c1, c2;
 
@@ -303,17 +409,29 @@ public class Bejeweled {
 
             // Get user input (1/2)
             System.out.println("Enter -1 at any time to return to the main menu.");
-            if ((x1 = requestInt("Enter coordinate X1: ", 0, NUM_ROWS - 1)) == MAIN_MENU_CHOICE) return false;
-            if ((y1 = requestInt("Enter coordinate Y1: ", 0, NUM_COLS - 1)) == MAIN_MENU_CHOICE) return false;
+            if ((x1 = requestInt("Enter row 1: ", 0, NUM_ROWS - 1)) == MAIN_MENU_CHOICE) return false;
+            if ((y1 = requestInt("Enter col 1: ", 0, NUM_COLS - 1)) == MAIN_MENU_CHOICE) return false;
 
             // Display board with marked piece
             toggleMark(x1, y1);
             System.out.println(displayBoard(false));
-            toggleMark(x1, y1);  // Unmark for future equality checks
 
             // Get user input (2/2)
-            if ((x2 = requestInt("Enter coordinate X2: ", 0, NUM_ROWS - 1)) == MAIN_MENU_CHOICE) return false;
-            if ((y2 = requestInt("Enter coordinate Y2: ", 0, NUM_COLS - 1)) == MAIN_MENU_CHOICE) return false;
+            System.out.println("Enter -1 at any time to return to the main menu.");
+            if ((x2 = requestInt("Enter row 2: ", 0, NUM_ROWS - 1)) == MAIN_MENU_CHOICE) return false;
+            if ((y2 = requestInt("Enter col 2: ", 0, NUM_COLS - 1)) == MAIN_MENU_CHOICE) return false;
+
+            // Display board with marked piece
+            toggleMark(x2, y2);
+            System.out.println(displayBoard(false));
+
+            // Wait for user to press ENTER
+            System.out.println("Press ENTER to continue...");
+            sc.nextLine();
+
+            // Unmark for future equality checks
+            toggleMark(x1, y1);
+            toggleMark(x2, y2);
 
             if (!adjSlots(x1, y1, x2, y2)) {  // Check if coordinates are adjacent
                 System.out.println("Coordinates are not adjacent.");
@@ -326,6 +444,7 @@ public class Bejeweled {
                 c1 = count(x1, y1);
                 c2 = count(x2, y2);
 
+                // Horizontal chains
                 if (c1[4] + 1 >= CHAIN_REQ) {  // If horizontal chain
                     deleteHorizontal(x1, y1 - c1[0], c1[4] + 1, y1);
                 }
@@ -333,6 +452,7 @@ public class Bejeweled {
                     deleteVertical(x1 - c1[2], y1, c1[5] + 1, x1);
                 }
 
+                // Vertical chains
                 if (c2[4] + 1 >= CHAIN_REQ) {  // If horizontal chain
                     deleteHorizontal(x2, y2 - c2[0], c2[4] + 1, y2);
                 }
@@ -340,7 +460,7 @@ public class Bejeweled {
                     deleteVertical(x2 - c2[2], y2, c2[5] + 1, x2);
                 }
 
-                // Delete action pieces if it was involved in a chain
+                // Delete action pieces
                 if (c1[4] + 1 >= CHAIN_REQ || c1[5] + 1 >= CHAIN_REQ) {
                     delete(x1, y1);
                 }
@@ -364,6 +484,16 @@ public class Bejeweled {
         return true;
     }
 
+    /**
+     * This method is used to start the game.
+     * It initializes the game variables and displays the main menu or in-game menu depending on the game state.
+     * The main menu has options to start a new game, load a game, or exit the program.
+     * The in-game menu has options to continue the current game, save the game, load a game, or exit the program.
+     * If the user chooses to start a new game, it initializes the game board and starts the game.
+     * If the user chooses to save the game, it prompts for a filename and saves the game to that file.
+     * If the user chooses to load a game, it prompts for a filename and loads the game from that file.
+     * If the user chooses to exit the program, it ends the method and the program.
+     */
     public void start() {
         // Variables
         Scanner sc = new Scanner(System.in);
@@ -376,7 +506,7 @@ public class Bejeweled {
         board = new char[NUM_ROWS][NUM_COLS];
 
         do {
-            System.out.println("Bejeweled");
+            System.out.println("BEJEWELED");
             if (inGame) {
                 // Display in-game menu options
                 System.out.println("1. Continue");
@@ -397,9 +527,7 @@ public class Bejeweled {
                     if (!inGame) {  // If the user enters 1 and is not in game, create a new board
                         initBoard();
                     }
-
-                    // Play game
-                    inGame = !play();
+                    inGame = !play();  // Play game
                     break;
                 case 2:
                     System.out.print("File: ");
