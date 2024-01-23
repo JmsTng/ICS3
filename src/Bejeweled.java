@@ -13,14 +13,14 @@ import java.util.Scanner;
 
 public class Bejeweled {
     /* Constants */
-    final int MAIN_MENU_CHOICE = -1;
-    final int CHAIN_REQ = 3;
-    final int NUM_MOVES = 10;
-    final int PIECE_STYLES = 7;
-    final int NUM_ROWS = 8;
-    final int NUM_COLS = 8;
-    final char EMPTY = '-';
-    final String SAVE_FOLDER = "saves\\";
+    static final int MAIN_MENU_CHOICE = -1;
+    static final int CHAIN_REQ = 3;
+    static final int NUM_MOVES = 10;
+    static final int PIECE_STYLES = 7;
+    static final int NUM_ROWS = 8;
+    static final int NUM_COLS = 8;
+    static final char EMPTY = '-';
+    static final String SAVE_FOLDER = "saves\\";
 
     /* Globals */
     char[][] board;
@@ -45,6 +45,20 @@ public class Bejeweled {
         } while (!input.matches("\\d+") || Integer.parseInt(input) < min || Integer.parseInt(input) > max);  // Check if input is an integer within range
 
         return Integer.parseInt(input);
+    }
+
+    public static int countEmpty(char[][] board) {
+        int count = 0;
+
+        for (int i = 0; i < NUM_ROWS; i++) {
+            for (int j = 0; j < NUM_COLS; j++) {
+                if (board[i][j] == EMPTY) {
+                    count++;
+                }
+            }
+        }
+
+        return count;
     }
 
     /* Game Methods */
@@ -231,12 +245,9 @@ public class Bejeweled {
             }
 
             for (int col = 0; col < NUM_COLS; col++) {
-                // Get style of piece
-                if (board[row][col] >= 'A' && board[row][col] <= 'H') output += BColours.BOLD;
-
-                switch (board[row][col]) {
+                switch (board[row][col]) {  // Get colour of piece
                     case 'a', 'A':
-                        output += BColours.BLACK;
+                        output += BColours.RESET;
                         break;
                     case 'b', 'B':
                         output += BColours.ERROR;
@@ -260,6 +271,9 @@ public class Bejeweled {
                         output += BColours.WHITE;
                         break;
                 }
+
+                // Get style of piece
+                if (board[row][col] >= 'A' && board[row][col] <= 'H') output += BColours.BOLD;
                 output += " " + board[row][col] + BColours.RESET;
             }
             output += "\n";
@@ -300,39 +314,33 @@ public class Bejeweled {
                 swap(x1, y1, x2, y2);
                 moves--;
 
-                // Check for chains (1/2)
+                // Check for chains
                 c1 = count(x1, y1);
-
-                // Check for chains (2/2)
                 c2 = count(x2, y2);
 
                 if (c1[4] + 1 >= CHAIN_REQ) {  // If horizontal chain
                     deleteHorizontal(x1, y1 - c1[0], c1[4] + 1, y1);
-                    score += c1[4];
                 }
                 if (c1[5] + 1 >= CHAIN_REQ) {  // If vertical chain
                     deleteVertical(x1 - c1[2], y1, c1[5] + 1, x1);
-                    score += c1[5];
                 }
 
                 if (c2[4] + 1 >= CHAIN_REQ) {  // If horizontal chain
                     deleteHorizontal(x2, y2 - c2[0], c2[4] + 1, y2);
-                    score += c2[4];
                 }
                 if (c2[5] + 1 >= CHAIN_REQ) {  // If vertical chain
                     deleteVertical(x2 - c2[2], y2, c2[5] + 1, x2);
-                    score += c2[5];
                 }
 
                 // Delete action pieces if it was involved in a chain
                 if (c1[4] + 1 >= CHAIN_REQ || c1[5] + 1 >= CHAIN_REQ) {
                     delete(x1, y1);
-                    score++;
                 }
                 if (c2[4] + 1 >= CHAIN_REQ || c2[5] + 1 >= CHAIN_REQ) {
                     delete(x2, y2);
-                    score++;
                 }
+
+                score += countEmpty(board);  // Add points for empty spaces
 
                 update();  // Update board
             }
@@ -406,7 +414,7 @@ public class Bejeweled {
                     break;
                 case 4:  // Only available when in game
                     // Exit the program
-                    System.out.println("Thank you for playing!");
+                    System.out.println(BColours.BOLD + BColours.UNDERLINE + "Thank you for playing!" + BColours.RESET);
                     choice = -1;
                     break;
             }
