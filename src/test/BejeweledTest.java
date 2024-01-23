@@ -68,30 +68,30 @@ public class BejeweledTest {
         System.out.println(Arrays.toString(game.count(7, 0)));
     }
 
-    public static void testDeletes() {
-        Bejeweled game = new Bejeweled();
-        game.initBoard();
-        game.board = new char[][]{
-                {'A', 'A', 'A', 'A', 'A', 'A', 'A', 'A'},
-                {'B', 'B', 'A', 'B', 'B', 'B', 'B', 'B'},
-                {'C', 'C', 'A', 'C', 'C', 'C', 'C', 'C'},
-                {'D', 'D', 'D', 'D', 'D', 'D', 'D', 'D'},
-                {'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E'},
-                {'F', 'F', 'F', 'F', 'F', 'F', 'F', 'F'},
-                {'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G'},
-                {'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H'}
-        };
-
-        System.out.println("Deletes:");
-        game.deleteLeft(0, 3, 3);
-        printBoard(game);
-        System.out.println();
-        game.deleteRight(0, 3, 3);
-        printBoard(game);
-        System.out.println();
-        game.deleteUp(7, 7, 7);
-        printBoard(game);
-    }
+//    public static void testDeletes() {
+//        Bejeweled game = new Bejeweled();
+//        game.initBoard();
+//        game.board = new char[][]{
+//                {'A', 'A', 'A', 'A', 'A', 'A', 'A', 'A'},
+//                {'B', 'B', 'A', 'B', 'B', 'B', 'B', 'B'},
+//                {'C', 'C', 'A', 'C', 'C', 'C', 'C', 'C'},
+//                {'D', 'D', 'D', 'D', 'D', 'D', 'D', 'D'},
+//                {'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E'},
+//                {'F', 'F', 'F', 'F', 'F', 'F', 'F', 'F'},
+//                {'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G'},
+//                {'H', 'H', 'H', 'H', 'H', 'H', 'H', 'H'}
+//        };
+//
+//        System.out.println("Deletes:");
+//        game.deleteLeft(0, 3, 3);
+//        printBoard(game);
+//        System.out.println();
+//        game.deleteRight(0, 3, 3);
+//        printBoard(game);
+//        System.out.println();
+//        game.deleteUp(7, 7, 7);
+//        printBoard(game);
+//    }
 
     @Test
     public void testUpdate() {
