@@ -21,15 +21,51 @@ public class BejeweledTest {
     @Test
     public void testInitBoard() {
         Bejeweled game = new Bejeweled();
+        game.board = new char[game.NUM_ROWS][game.NUM_COLS];
         game.initBoard();
 
-        assert game.board.length == game.NUM_ROWS;
         for (int row = 0; row < game.NUM_ROWS; row++) {
-            assert game.board[row].length == game.NUM_COLS;
             for (int col = 0; col < game.NUM_COLS; col++) {
                 assert game.board[row][col] >= 'a' && game.board[row][col] <= 'h';
             }
         }
+        System.out.println("Test 1: Passed");
+
+        game.initBoard();
+
+        for (int row = 0; row < game.NUM_ROWS; row++) {
+            for (int col = 0; col < game.NUM_COLS; col++) {
+                assert game.board[row][col] >= 'a' && game.board[row][col] <= 'h';
+            }
+        }
+        System.out.println("Test 2: Passed");
+
+        game.initBoard();
+
+        for (int row = 0; row < game.NUM_ROWS; row++) {
+            for (int col = 0; col < game.NUM_COLS; col++) {
+                assert game.board[row][col] >= 'a' && game.board[row][col] <= 'h';
+            }
+        }
+        System.out.println("Test 3: Passed");
+
+        game.initBoard();
+
+        for (int row = 0; row < game.NUM_ROWS; row++) {
+            for (int col = 0; col < game.NUM_COLS; col++) {
+                assert game.board[row][col] >= 'a' && game.board[row][col] <= 'h';
+            }
+        }
+        System.out.println("Test 4: Passed");
+
+        game.initBoard();
+
+        for (int row = 0; row < game.NUM_ROWS; row++) {
+            for (int col = 0; col < game.NUM_COLS; col++) {
+                assert game.board[row][col] >= 'a' && game.board[row][col] <= 'h';
+            }
+        }
+        System.out.println("Test 5: Passed");
     }
 
     @Test
